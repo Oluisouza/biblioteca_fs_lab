@@ -4,9 +4,12 @@
     <a href="{% url 'novo' %}">Cadastrar livro</a>
 
     <h1>Acervo</h1>
-    <ul>
+    <ul class="livros">
         {% for livro in livros %}
-            <li>{{ livro.titulo }} - {{ livro.autor }}</li>
+            <li>
+                <strong>{{ livro.titulo }}</strong> - {{ livro.autor }} ({{ livro.ano }})
+                <span class="meta">{{ livro.get_tipo_display }}</span>
+            </li>
         {% empty %}
             <li>Nenhum livro encontrado.</li>
         {% endfor %}
