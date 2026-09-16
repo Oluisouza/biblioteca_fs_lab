@@ -1,8 +1,14 @@
-<html><body>
-    <header>Biblioteca</header>
-
-    {% block conteudo %}
-    {% endblock %}
-
-    <footer>© 2026</footer>
-</body></html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Biblioteca</title>
+  <link rel="stylesheet" href="{% static 'acervo/estilo.css' %}">
+</head>
+<body>
+  <header>Biblioteca</header>
+  {% block conteudo %}{% endblock %}
+  <footer>© 2026</footer>
+</body>
+</html>
