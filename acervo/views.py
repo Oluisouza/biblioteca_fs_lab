@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Livro
 from .forms import LivroForm, BuscaForm
 
@@ -16,7 +17,9 @@ def lista_livros(request):
         categoria = busca.cleaned_data['categoria']
 
         if titulo:
-            livros = livros.filter(titulo__icontains=titulo)
+             livros = livros.filter(
+                Q(titulo__icontains=titulo) | Q(autor__icontains=titulo)
+            )
         if tipo:
             livros = livros.filter(tipo=tipo)
         if categoria:

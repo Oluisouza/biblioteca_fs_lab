@@ -7,7 +7,7 @@ class LivroForm(forms.ModelForm):
         fields = ['titulo', 'autor', 'ano', 'tipo', 'categoria']
 
 class BuscaForm(forms.Form):
-    titulo = forms.CharField(label='Título', required=False)
+    titulo = forms.CharField(label='Título ou autor', required=False)
     tipo = forms.ChoiceField(
         label='Tipo', required=False,
         choices=[('', 'Todos')] + Livro.Tipo.choices,
