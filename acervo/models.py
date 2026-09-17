@@ -23,7 +23,7 @@ class Livro(models.Model):
     ano = models.IntegerField()
     disponivel = models.BooleanField(default=True)
     tipo = models.CharField(max_length=7, choices=Tipo.choices, default=Tipo.FISICO)
-    Categoria = models.CharField(max_length=3, choices=Categoria.choices)
+    categoria = models.CharField(max_length=3, choices=Categoria.choices)
 
     def __str__(self):
         return self.titulo
