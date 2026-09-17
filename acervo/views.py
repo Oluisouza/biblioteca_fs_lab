@@ -1,16 +1,30 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Livro
-from .forms import LivroForm
+from .forms import LivroForm, BuscaForm
 
 def inicio(request):
     return HttpResponse('Olá, acervo!')
 
 def lista_livros(request):
     livros = Livro.objects.all()
+    busca = BuscaForm(request.GET)
+
+    if busca.is_valid():
+        titulo = busca.cleaned_data['titulo']
+        tipo = busca.cleaned_data['tipo']
+        categoria = busca.cleaned_data['categoria']
+
+        if titulo:
+            livros = livros.filter(titulo__icontains=titulo)
+        if tipo:
+            livros = livros.filter(tipo=tipo)
+        if categoria:
+            livros = livros.filter(categoria=categoria)
+
     return render(
         request, 'acervo/lista.html',
-        {'livros': livros}
+        {'livros': livros, 'busca': busca}
     )
 
 
