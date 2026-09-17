@@ -3,12 +3,23 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8">
-  <title>Biblioteca</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Biblioteca{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'acervo/estilo.css' %}">
 </head>
 <body>
-  <header>Biblioteca</header>
-  {% block conteudo %}{% endblock %}
-  <footer>© 2026</footer>
+  <header class="topo">
+    <a href="{% url 'lista' %}" class="marca">Biblioteca</a>
+    <nav>
+      <a href="{% url 'lista' %}">Acervo</a>
+      <a href="{% url 'novo' %}" class="botao">Cadastrar livro</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block conteudo %}{% endblock %}
+  </main>
+
+  <footer>© 2026 · Laboratório de Programação Full Stack</footer>
 </body>
 </html>

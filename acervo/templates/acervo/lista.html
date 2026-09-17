@@ -1,25 +1,25 @@
-{% extends 'acervo/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Biblioteca{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'acervo/estilo.css' %}">
+</head>
+<body>
+  <header class="topo">
+    <a href="{% url 'lista' %}" class="marca">Biblioteca</a>
+    <nav>
+      <a href="{% url 'lista' %}">Acervo</a>
+      <a href="{% url 'novo' %}" class="botao">Cadastrar livro</a>
+    </nav>
+  </header>
 
-{% block conteudo %}
-<a href="{% url 'novo' %}">Cadastrar livro</a>
+  <main>
+    {% block conteudo %}{% endblock %}
+  </main>
 
-<form method="get" class="busca">
-    {{ busca.titulo.label_tag }} {{ busca.titulo }}
-    {{ busca.tipo.label_tag }} {{ busca.tipo }}
-    {{ busca.categoria.label_tag }} {{ busca.categoria }}
-    <button>Pesquisar</button>
-    <a href="{% url 'lista' %}">Limpar</a>
-</form>
-
-<h1>Acervo</h1>
-<ul class="livros">
-    {% for livro in livros %}
-    <li>
-        <strong>{{ livro.titulo }}</strong> - {{ livro.autor }} ({{ livro.ano }})
-        <span class="meta">{{ livro.get_tipo_display }}</span>
-    </li>
-    {% empty %}
-    <li>Nenhum livro encontrado.</li>
-    {% endfor %}
-</ul>
-{% endblock %}
+  <footer>© 2026 · Laboratório de Programação Full Stack</footer>
+</body>
+</html>
