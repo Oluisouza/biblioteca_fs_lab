@@ -1,25 +1,46 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block titulo %}Biblioteca{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'acervo/estilo.css' %}">
-</head>
-<body>
-  <header class="topo">
-    <a href="{% url 'lista' %}" class="marca">Biblioteca</a>
-    <nav>
-      <a href="{% url 'lista' %}">Acervo</a>
-      <a href="{% url 'novo' %}" class="botao">Cadastrar livro</a>
-    </nav>
-  </header>
+{% extends 'acervo/base.html' %}
 
-  <main>
-    {% block conteudo %}{% endblock %}
-  </main>
+{% block titulo %}Acervo · Biblioteca{% endblock %}
 
-  <footer>© 2026 · Laboratório de Programação Full Stack</footer>
-</body>
-</html>
+{% block conteudo %}
+  <h1>Acervo</h1>
+
+  <form method="get" class="busca">
+    <div class="campo">
+      {{ busca.titulo.label_tag }} {{ busca.titulo }}
+    </div>
+    <div class="campo">
+      {{ busca.tipo.label_tag }} {{ busca.tipo }}
+    </div>
+    <div class="campo">
+      {{ busca.categoria.label_tag }} {{ busca.categoria }}
+    </div>
+    <div class="acoes">
+      <button class="botao">Pesquisar</button>
+      <a href="{% url 'lista' %}">Limpar</a>
+    </div>
+  </form>
+
+  <p class="contagem">{{ livros|length }} livro{{ livros|length|pluralize }} encontrado{{ livros|length|pluralize }}</p>
+
+  <ul class="livros">
+    {% for livro in livros %}
+      <li class="ficha">
+        <span class="codigo">{{ livro.categoria }}</span>
+        <div>
+          <h2>{{ livro.titulo }}</h2>
+          <p class="autor">{{ livro.autor }}, {{ livro.ano }}</p>
+          <p class="etiquetas">
+            <span class="tag tag-{{ livro.tipo }}">{{ livro.get_tipo_display }}</span>
+            <span class="tag">{{ livro.get_categoria_display }}</span>
+            {% if not livro.disponivel %}
+              <span class="tag tag-indisponivel">Indisponível</span>
+            {% endif %}
+          </p>
+        </div>
+      </li>
+    {% empty %}
+      <li class="vazio">Nenhum livro encontrado.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
